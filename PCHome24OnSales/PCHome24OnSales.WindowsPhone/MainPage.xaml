@@ -9,10 +9,10 @@
     Background="Black">
 
     <Grid>
-        <Pivot ItemsSource="{Binding Source}">
+        <Pivot ItemsSource="{Binding Source}" SelectionChanged="OnSalesPivotSelectionChanged">
             <Pivot.HeaderTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding BlockTitle}" Foreground="White" FontSize="26" Margin="0,0,30,0"/>
+                    <TextBlock Text="{Binding BlockTitle}" Foreground="{Binding BlockForeground}" FontSize="26" Margin="0,0,30,0"/>
                 </DataTemplate>
             </Pivot.HeaderTemplate>
             <Pivot.ItemTemplate>

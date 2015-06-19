@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PCHome24OnSales.API.Connection;
+using PCHome24OnSales.API.View;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -50,6 +51,15 @@ namespace PCHome24OnSales.API.Service
                 else
                 {
                     collection[i].BlockTitle = "特賣";
+                }
+
+                if (i == 0)
+                {
+                    collection[i].BlockForeground = SolidColorBrushs.WhiteColorBrush;
+                }
+                else
+                {
+                    collection[i].BlockForeground = SolidColorBrushs.GrayColorBrush;
                 }
             }
 
