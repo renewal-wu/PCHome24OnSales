@@ -2,6 +2,7 @@
 using PCHome24OnSales.API.Connection;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace PCHome24OnSales.API.Service
 {
@@ -25,7 +26,7 @@ namespace PCHome24OnSales.API.Service
             {
                 try
                 {
-                    String sourceResult = result.TrimEnd(';').Replace("<br \\/>", Environment.NewLine);
+                    String sourceResult = filterString(result);
 
                     var onSaleItem = JsonConvert.DeserializeObject<List<OnSaleItem>>(sourceResult);
 
@@ -53,6 +54,17 @@ namespace PCHome24OnSales.API.Service
             }
 
             return collection;
+        }
+
+        private String filterString(String originalString)
+        {
+            // filter ;
+            String filteredString = originalString.TrimEnd(';');
+
+            // filter all html tags
+            filteredString = Regex.Replace(filteredString, @"<[^>]*>", String.Empty);
+
+            return filteredString;
         }
     }
 }
