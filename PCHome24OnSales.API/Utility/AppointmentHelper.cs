@@ -31,7 +31,7 @@ namespace PCHome24OnSales.API.Utility
             return result;
         }
 
-        public static async Task<Boolean> AddReminder(Node sourceData, DateTime date)
+        public static async Task<Boolean> AddReminder(Node sourceData, DateTime date, Boolean isWeekend)
         {
             Boolean result = false;
 

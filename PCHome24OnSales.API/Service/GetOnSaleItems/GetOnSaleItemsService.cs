@@ -20,15 +20,6 @@ namespace PCHome24OnSales.API.Service
         {
             GetOnSaleItemsService service = new GetOnSaleItemsService();
             var result = await BaseConnection.Connect(service);
-
-            if (result != null)
-            {
-                foreach (var item in result)
-                {
-                    item.Date = DateTime.Today;
-                }
-            }
-
             return result;
         }
     }

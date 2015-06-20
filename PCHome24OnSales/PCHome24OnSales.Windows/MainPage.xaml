@@ -11,6 +11,10 @@
     mc:Ignorable="d">
 
     <Page.Resources>
+        <MenuFlyout x:Key="OnSaleItemFlyout">
+            <MenuFlyoutItem Text="加入行事曆" Click="OnAddAppointmentClick"></MenuFlyoutItem>
+        </MenuFlyout>
+        
         <Style TargetType="ListViewItem">
             <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
             <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
@@ -51,7 +55,7 @@
             <ListView x:Name="ItemListView" Grid.Row="0" ItemsSource="{Binding Nodes}" DataContext="{Binding ElementName=IndexListView, Path=SelectedItem}" Padding="{Binding ElementName=IndexListView, Path=Padding}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="OnItemListViewClick" HorizontalContentAlignment="Stretch">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid ToolTipService.ToolTip="{Binding Link.Text1}">
+                        <Grid ToolTipService.ToolTip="{Binding Link.Text1}" Holding="OnSaleItemHolding" RightTapped="OnSaleItemRightTapped">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="140"/>

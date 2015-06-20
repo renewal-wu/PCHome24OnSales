@@ -7,11 +7,9 @@ using PCHome24OnSales.ViewModel;
 using System;
 using System.Threading.Tasks;
 using Windows.System;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 
@@ -86,9 +84,13 @@ namespace PCHome24OnSales
 
         private void OnSaleItemHolding(object sender, Windows.UI.Xaml.Input.HoldingRoutedEventArgs e)
         {
-            //FrameworkElement senderElement = sender as FrameworkElement;
-            //FlyoutBase flyoutBase = this.Resources["OnSaleItemFlyout"] as FlyoutBase;
-            //flyoutBase.ShowAt(senderElement);
+            FrameworkElement senderElement = sender as FrameworkElement;
+            var sourceData = senderElement.DataContext as Node;
+            if (sourceData.ExtraData != null && sourceData.ExtraData.IsUnlimitedSale == false)
+            {
+                FlyoutBase flyoutBase = this.Resources["OnSaleItemFlyout"] as FlyoutBase;
+                flyoutBase.ShowAt(senderElement);
+            }
         }
 
         private async void OnAddAppointmentClick(object sender, RoutedEventArgs e)
@@ -99,7 +101,7 @@ namespace PCHome24OnSales
                 var sourceData = senderElement.DataContext as Node;
                 if (sourceData != null)
                 {
-                    var result = await AppointmentHelper.AddReminder(sourceData, this.viewModel.Source[0].Date);
+                    var result = await AppointmentHelper.AddReminder(sourceData, this.viewModel.Source[0].Date, this.viewModel.Source[0].IsWeekend);
                     if (result == true)
                     {
 

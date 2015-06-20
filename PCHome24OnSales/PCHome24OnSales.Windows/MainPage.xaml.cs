@@ -1,17 +1,13 @@
-﻿using PCHome24OnSales.API.Service;
-using PCHome24OnSales.API.Service.GetOnSaleItems;
+﻿using PCHome24OnSales.API.Service.GetOnSaleItems;
 using PCHome24OnSales.API.Utility;
-using PCHome24OnSales.API.View;
 using PCHome24OnSales.Pages;
 using PCHome24OnSales.ViewModel;
 using System;
 using System.Threading.Tasks;
 using Windows.System;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 
@@ -82,6 +78,45 @@ namespace PCHome24OnSales
             if (viewModel.Source != null && viewModel.Source.Count > currentIndexItemIndex)
             {
                 IndexListView.SelectedIndex = currentIndexItemIndex;
+            }
+        }
+
+        private void OnSaleItemHolding(object sender, Windows.UI.Xaml.Input.HoldingRoutedEventArgs e)
+        {
+            FrameworkElement senderElement = sender as FrameworkElement;
+            var sourceData = senderElement.DataContext as Node;
+            if (sourceData.ExtraData != null && sourceData.ExtraData.IsUnlimitedSale == false)
+            {
+                FlyoutBase flyoutBase = this.Resources["OnSaleItemFlyout"] as FlyoutBase;
+                flyoutBase.ShowAt(senderElement);
+            }
+        }
+
+        private void OnSaleItemRightTapped(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
+        {
+            FrameworkElement senderElement = sender as FrameworkElement;
+            var sourceData = senderElement.DataContext as Node;
+            if (sourceData.ExtraData != null && sourceData.ExtraData.IsUnlimitedSale == false)
+            {
+                FlyoutBase flyoutBase = this.Resources["OnSaleItemFlyout"] as FlyoutBase;
+                flyoutBase.ShowAt(senderElement);
+            }
+        }
+
+        private async void OnAddAppointmentClick(object sender, RoutedEventArgs e)
+        {
+            var senderElement = sender as FrameworkElement;
+            if (senderElement != null)
+            {
+                var sourceData = senderElement.DataContext as Node;
+                if (sourceData != null)
+                {
+                    var result = await AppointmentHelper.AddReminder(sourceData, this.viewModel.Source[0].Date, this.viewModel.Source[0].IsWeekend);
+                    if (result == true)
+                    {
+
+                    }
+                }
             }
         }
 

@@ -17,14 +17,13 @@ namespace PCHome24OnSales.Pages
             StatusBar statusBar = StatusBar.GetForCurrentView();
             statusBar.ProgressIndicator.Text = "讀取中...";
             statusBar.ProgressIndicator.ShowAsync();
-            statusBar.ShowAsync();
 #endif
         }
 
         protected virtual void HideProgressBar()
         {
 #if WINDOWS_PHONE_APP
-            StatusBar.GetForCurrentView().HideAsync();
+            StatusBar.GetForCurrentView().ProgressIndicator.HideAsync();
 #endif
         }
     }

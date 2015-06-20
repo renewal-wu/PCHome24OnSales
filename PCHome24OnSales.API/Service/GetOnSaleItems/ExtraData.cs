@@ -14,13 +14,38 @@ namespace PCHome24OnSales.API.Service.GetOnSaleItems
         [JsonProperty("Time")]
         public String Time { get; set; }
 
+        public Boolean IsWeekendSale
+        {
+            get
+            {
+                if (Onsale != null && Onsale.Style == "Weekend")
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        public Boolean IsUnlimitedSale
+        {
+            get
+            {
+                return IsWeekendSale && Time == null;
+            }
+        }
+
         public String CurrentTime
         {
             get
             {
                 String result = String.Empty;
 
-                if (Onsale != null && String.IsNullOrEmpty(Onsale.Time) == false)
+                if (IsUnlimitedSale)
+                {
+                    result = "18:00:00";
+                }
+                else if (Onsale != null && String.IsNullOrEmpty(Onsale.Time) == false)
                 {
                     result = Onsale.Time;
                 }
@@ -37,13 +62,20 @@ namespace PCHome24OnSales.API.Service.GetOnSaleItems
         {
             get
             {
-                String result = CurrentTime;
+                String result = null;
 
-                String[] timeArray = HourArray;
-                if (timeArray != null && timeArray.Length > 0)
+                if (IsUnlimitedSale)
                 {
-                    timeArray[0] = transHour(timeArray[0]);
-                    result = String.Join(":", timeArray);
+                    result = "周末特賣";
+                }
+                else
+                {
+                    String[] timeArray = HourArray;
+                    if (timeArray != null && timeArray.Length > 0)
+                    {
+                        timeArray[0] = transHour(timeArray[0]);
+                        result = String.Join(":", timeArray);
+                    }
                 }
 
                 return result;

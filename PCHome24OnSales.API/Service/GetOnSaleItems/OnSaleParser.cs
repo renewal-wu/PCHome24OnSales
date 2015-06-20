@@ -42,6 +42,14 @@ namespace PCHome24OnSales.API.Service
                 }
             }
 
+            DateTime dateTime = DateTime.Today;
+            Boolean isWeekend = false;
+
+            if (collection.Count > 0 && collection[0].Nodes != null && collection[0].Nodes.Count > 0 && collection[0].Nodes[0].ExtraData != null && collection[0].Nodes.Count > 0 && collection[0].Nodes[0].ExtraData.IsWeekendSale == true)
+            {
+                isWeekend = true;
+            }
+
             for (Int32 i = 0; i < collection.Count; i++)
             {
                 if (titleArray.Count > i)
@@ -61,6 +69,9 @@ namespace PCHome24OnSales.API.Service
                 {
                     collection[i].BlockForeground = SolidColorBrushs.GrayColorBrush;
                 }
+
+                collection[i].Date = dateTime;
+                collection[i].IsWeekend = isWeekend;
             }
 
             return collection;
