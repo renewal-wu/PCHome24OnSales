@@ -51,6 +51,7 @@
     <Compile Include="Service\GetOnSaleItems\OnSaleItem.cs" />
     <Compile Include="Service\GetOnSaleItems\OnSaleParser.cs" />
     <Compile Include="Service\GetOnSaleItems\ProductData.cs" />
+    <Compile Include="Utility\AppointmentHelper.cs" />
     <Compile Include="View\SolidColorBrushs.cs" />
   </ItemGroup>
   <ItemGroup>

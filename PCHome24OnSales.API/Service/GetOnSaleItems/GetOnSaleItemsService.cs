@@ -11,7 +11,7 @@ namespace PCHome24OnSales.API.Service
         {
             get
             {
-                String date = DateTime.Now.ToString("yyyyMMdd");
+                String date = DateTime.Today.ToString("yyyyMMdd");
                 return new Uri(String.Format("http://24h.pchome.com.tw/onsale/v2/{0}/data.json", date), UriKind.Absolute);
             }
         }
@@ -19,7 +19,17 @@ namespace PCHome24OnSales.API.Service
         public static async Task<IList<OnSaleItem>> Invoke()
         {
             GetOnSaleItemsService service = new GetOnSaleItemsService();
-            return await BaseConnection.Connect(service);
+            var result = await BaseConnection.Connect(service);
+
+            if (result != null)
+            {
+                foreach (var item in result)
+                {
+                    item.Date = DateTime.Today;
+                }
+            }
+
+            return result;
         }
     }
 }

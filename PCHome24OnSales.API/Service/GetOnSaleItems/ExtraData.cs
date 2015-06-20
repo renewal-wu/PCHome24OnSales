@@ -14,7 +14,7 @@ namespace PCHome24OnSales.API.Service.GetOnSaleItems
         [JsonProperty("Time")]
         public String Time { get; set; }
 
-        public String TimeString
+        public String CurrentTime
         {
             get
             {
@@ -29,13 +29,39 @@ namespace PCHome24OnSales.API.Service.GetOnSaleItems
                     result = Time;
                 }
 
-                if (String.IsNullOrEmpty(result) == false)
+                return result;
+            }
+        }
+
+        public String TimeString
+        {
+            get
+            {
+                String result = CurrentTime;
+
+                String[] timeArray = HourArray;
+                if (timeArray != null && timeArray.Length > 0)
                 {
-                    String[] timeArray = result.Split(new String[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
+                    timeArray[0] = transHour(timeArray[0]);
+                    result = String.Join(":", timeArray);
+                }
+
+                return result;
+            }
+        }
+
+        public String[] HourArray
+        {
+            get
+            {
+                String[] result = null;
+
+                if (String.IsNullOrEmpty(CurrentTime) == false)
+                {
+                    String[] timeArray = CurrentTime.Split(new String[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
                     if (timeArray != null && timeArray.Length > 0)
                     {
-                        timeArray[0] = transHour(timeArray[0]);
-                        result = String.Join(":", timeArray);
+                        result = timeArray;
                     }
                 }
 

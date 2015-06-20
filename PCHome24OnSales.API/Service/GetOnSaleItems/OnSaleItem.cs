@@ -34,6 +34,8 @@ namespace PCHome24OnSales.API.Service
             }
         }
 
+        public DateTime Date { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
         {

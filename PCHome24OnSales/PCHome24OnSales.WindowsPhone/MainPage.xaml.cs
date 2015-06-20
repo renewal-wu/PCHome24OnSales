@@ -1,18 +1,23 @@
 ﻿using PCHome24OnSales.API.Service;
 using PCHome24OnSales.API.Service.GetOnSaleItems;
+using PCHome24OnSales.API.Utility;
 using PCHome24OnSales.API.View;
+using PCHome24OnSales.Pages;
 using PCHome24OnSales.ViewModel;
 using System;
+using System.Threading.Tasks;
 using Windows.System;
 using Windows.UI;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 
 namespace PCHome24OnSales
 {
-    public sealed partial class MainPage : Page
+    public sealed partial class MainPage : BasePage
     {
         private MainPageViewModel viewModel { get; set; }
 
@@ -27,9 +32,16 @@ namespace PCHome24OnSales
             this.DataContext = viewModel;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            viewModel.Initial();
+            initialData();
+        }
+
+        private async Task initialData()
+        {
+            ShowProgressBar();
+            await viewModel.Initial();
+            HideProgressBar();
         }
 
         private void OnSaleItemsClick(object sender, ItemClickEventArgs e)
@@ -69,6 +81,40 @@ namespace PCHome24OnSales
                         item.BlockForeground = SolidColorBrushs.GrayColorBrush;
                     }
                 }
+            }
+        }
+
+        private void OnSaleItemHolding(object sender, Windows.UI.Xaml.Input.HoldingRoutedEventArgs e)
+        {
+            //FrameworkElement senderElement = sender as FrameworkElement;
+            //FlyoutBase flyoutBase = this.Resources["OnSaleItemFlyout"] as FlyoutBase;
+            //flyoutBase.ShowAt(senderElement);
+        }
+
+        private async void OnAddAppointmentClick(object sender, RoutedEventArgs e)
+        {
+            var senderElement = sender as FrameworkElement;
+            if (senderElement != null)
+            {
+                var sourceData = senderElement.DataContext as Node;
+                if (sourceData != null)
+                {
+                    var result = await AppointmentHelper.AddReminder(sourceData, this.viewModel.Source[0].Date);
+                    if (result == true)
+                    {
+
+                    }
+                }
+            }
+        }
+
+        private async void OnRefreshButtonClick(object sender, RoutedEventArgs e)
+        {
+            Int32 currentPivotItemIndex = OnSalesPivot.SelectedIndex;
+            await initialData();
+            if (viewModel.Source != null && viewModel.Source.Count > currentPivotItemIndex)
+            {
+                OnSalesPivot.SelectedIndex = currentPivotItemIndex;
             }
         }
     }
