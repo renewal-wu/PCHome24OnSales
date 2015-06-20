@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="51692RenewalWu.24" Publisher="CN=835BB952-76AE-4FB4-90F4-4F8318AC4B03" Version="1.0.0.0" />
+  <Identity Name="51692RenewalWu.166440F777161" Publisher="CN=835BB952-76AE-4FB4-90F4-4F8318AC4B03" Version="1.0.0.0" />
   <Properties>
-    <DisplayName>PCHome24小時整點特賣</DisplayName>
+    <DisplayName>整點特賣</DisplayName>
     <PublisherDisplayName>RenewalWu</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="PCHome24OnSales.Windows.App">
-      <m2:VisualElements DisplayName="PCHome24小時整點特賣" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" Description="PCHome 24h 整點特賣 Windows app 版" ForegroundText="light" BackgroundColor="#DD0000">
+      <m2:VisualElements DisplayName="整點特賣" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" Description="PCHome 24h 整點特賣 Windows app 版" ForegroundText="light" BackgroundColor="#DD0000">
         <m2:DefaultTile Square310x310Logo="Assets\Square310x310Logo.png" Wide310x150Logo="Assets\Wide310x150Logo.png" Square70x70Logo="Assets\Square70x70Logo.png">
         </m2:DefaultTile>
         <m2:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#DD0000" />
