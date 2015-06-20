@@ -11,7 +11,7 @@ namespace PCHome24OnSales.Pages
 {
     public class BasePage : Page
     {
-        protected void ShowProgressBar()
+        protected virtual void ShowProgressBar()
         {
 #if WINDOWS_PHONE_APP
             StatusBar statusBar = StatusBar.GetForCurrentView();
@@ -21,7 +21,7 @@ namespace PCHome24OnSales.Pages
 #endif
         }
 
-        protected void HideProgressBar()
+        protected virtual void HideProgressBar()
         {
 #if WINDOWS_PHONE_APP
             StatusBar.GetForCurrentView().HideAsync();
